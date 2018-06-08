@@ -106,7 +106,8 @@ var getJSON1 = {
 }
 var getJSON2 = {
     ajaxFn: function(obj, cb, chain) {
-        var self = this;
+        var args = arguments;
+
         $.getJSON('json2.json', obj, function(data) {
             cb && cb(data, chain)
         })
@@ -137,13 +138,17 @@ list1.createAndAdd(function() {
 });
 fn2 = list1.createAndAdd(function() {
     var obj = {};
-    getJSON1.ajaxFn.call(this, obj, getJSON1.callback, fn2)
+    getJSON1.ajaxFn(obj, getJSON1.callback, fn2)
 
 });
+
+//removeFn(fn2) 从任务队列中传入fn2 找到并删除它
 list1.removeFn(fn2)
+
 fn3 = list1.createAndAdd(function() {
     var obj = {};
-    getJSON2.ajaxFn.call(this, obj, getJSON2.callback, fn3)
+
+    getJSON2.ajaxFn(obj, getJSON2.callback, fn3)
 
 
 });
